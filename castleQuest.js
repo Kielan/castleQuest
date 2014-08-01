@@ -18,10 +18,10 @@ var Game = {
 
         this._generateMap();
 
-        var str = "Fighter\n xp\n <3 <3 <3"
+        var str = "Fighter\n xp\n 22/22 \n 1. \n 2. \n3. \n4. \n5."
         this.display.drawText(57,2,str);
         
-        var scheduler = new ROT.Scheduler.Simple();
+        var scheduler = new ROT.Scheduler.Speed();
         scheduler.add(this.player, true);
         scheduler.add(this.pedro, true);
 
@@ -75,21 +75,19 @@ var Game = {
 var Player = function(x, y) {
     this._x = x;
     this._y = y;
+    this.speed= 1;
     this._draw();
 }
 
-Player.prototype.getSpeed = function() { return 100; }
-Player.prototype.getX = function() { return this._x; }
-Player.prototype.getY = function() { return this._y; }
-
-
-Player.prototype.act = function() {
+Player.prototype = {
+  getSpeed : function() { return 100; },
+  getX : function() {return this._x; },
+  getY : function() {return this._y; },
+  act : function() {
     Game.engine.lock();
     window.addEventListener("keydown", this);
-}
-
-
-Player.prototype.handleEvent = function(e) {
+  },
+  handleEvent : function (e) {
     var code = e.keyCode;
     if (code == 13 || code == 32) {
         this._checkBox();
@@ -140,8 +138,11 @@ Player.prototype.handleEvent = function(e) {
     this._draw();
     window.removeEventListener("keydown", this);
     Game.engine.unlock();
+  },
+
+  _draw : function() {
+    Game.display.draw(this._x, this._y, "@", "#ff0");
+  }
 }
 
-Player.prototype._draw = function() {
-    Game.display.draw(this._x, this._y, "@", "#ff0");
-}
+
