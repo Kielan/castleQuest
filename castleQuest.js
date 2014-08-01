@@ -159,13 +159,13 @@ Player.prototype = {
   _check : function() {
     var key = this._x + "," + this._y;
     if (Game.map[key] != "*") {
-        alert("There is no box here!");
+        alert("its empty");
     } else if (key == Game.ananas) {
-        alert("Hooray! You found an ananas and won this game.");
+        alert("Hooray! You found gold and won this game.");
         Game.engine.lock();
         window.removeEventListener("keydown", this);
     } else {
-        alert("This box is empty :-(");
+        alert("empty box");
     }
   }
 };
