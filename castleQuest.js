@@ -17,9 +17,7 @@ var Game = {
         document.body.appendChild(this.display.getContainer());
 
         this._generateMap();
-
-        var str = "Fighter\n xp\n 22/22 \n 1. \n 2. \n3. \n4. \n5."
-        this.display.drawText(57,2,str);
+        this._generateProfile();
         
         var scheduler = new ROT.Scheduler.Speed();
         scheduler.add(this.player, true);
@@ -27,6 +25,20 @@ var Game = {
 
         this.engine = new ROT.Engine(scheduler);
         this.engine.start();
+    },
+
+    _generateProfile: function() {
+        var profileObject = {profession: "Fighter", xp: "xp", health: "22/22", one: "1.", two: "2.", three: "3.", four: "4.", five: "5."};
+        console.log(profileObject.profession);
+        console.log(profileObject.toString());
+        this.display.drawText(57,2,profileObject.profession);
+        this.display.drawText(57,3,profileObject.xp);
+        this.display.drawText(57,4,profileObject.health);
+        this.display.drawText(57,5,profileObject.one);
+        this.display.drawText(57,6,profileObject.two);
+        this.display.drawText(57,7,profileObject.three);
+        this.display.drawText(57,8,profileObject.four);
+        this.display.drawText(57,9,profileObject.five);
     },
 
     _generateMap: function() {
@@ -142,7 +154,30 @@ Player.prototype = {
 
   _draw : function() {
     Game.display.draw(this._x, this._y, "@", "#ff0");
+  },
+
+  _check : function() {
+    var key = this._x + "," + this._y;
+    if (Game.map[key] != "*") {
+        alert("There is no box here!");
+    } else if (key == Game.ananas) {
+        alert("Hooray! You found an ananas and won this game.");
+        Game.engine.lock();
+        window.removeEventListener("keydown", this);
+    } else {
+        alert("This box is empty :-(");
+    }
   }
+};
+
+var AI = function(x, y) {
+    this._x = x;
+    this._y = y;
+    this._draw();
 }
+
+AI.prototype = {
+
+};
 
 
