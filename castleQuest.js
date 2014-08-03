@@ -3,7 +3,7 @@ var Game = {
     map: {},
     engine: null,
     player: null,
-    pedro: null,
+    AI: null,
     ananas: null,
 
 //    initUI: function () {
@@ -59,8 +59,8 @@ var Game = {
         this._generateBoxes(layer1);
         this._drawWholeMap();
         
-        this.player = this._createBeing(Player, layer1);
-//        this.AI = this._createBeing(AI, layer1);
+        this.player = this._createBeing(player, layer1);
+        this.AI = this._createBeing(AI, layer1);
     },
 
 
@@ -95,14 +95,14 @@ var Game = {
 };
 
 
-var Player = function(x, y) {
+var player = function(x, y) {
     this._x = x;
     this._y = y;
     this._draw();
     this.getSpeed = function() { return 100; };
 }
 
-Player.prototype = {
+player.prototype = {
 //  getSpeed : function() { return 100; },
   getX : function() {return this._x; },
   getY : function() {return this._y; },
@@ -190,8 +190,8 @@ var AI = function(x, y) {
 AI.prototype = {
 //    getSpeed : function() { return 100; },
     act : function() {
-    var x = Game.Player.getX();
-    var y = Game.Player.getY();
+    var x = Game.player.getX();
+    var y = Game.player.getY();
 
     var passableCallback = function(x, y) {
         return (x+","+y in Game.map);
@@ -221,5 +221,3 @@ AI.prototype = {
     Game.display.draw(this._x, this._y, "P", "red");
   }
 };
-
-
