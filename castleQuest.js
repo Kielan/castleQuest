@@ -136,11 +136,11 @@ player.prototype = {
     var newY = this._y + dir[1];
     var newKey = newX + "," + newY;
     var keys = {};
-    keys["C"] = 0;
-    keys["$"] = 1;
-    keys["P"] = 2;
+    keys[0] = "C";
+    keys[1] = "$";
+    keys[2] = "P";
     
-    if (Game.map[newKey] === keys(0)) {
+    if (Game.map[newKey] === keys[0]) {
       console.log('alert box detected bro')
 //      box.bump();      
 
