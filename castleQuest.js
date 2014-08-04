@@ -4,7 +4,7 @@ var Game = {
     engine: null,
     player: null,
     AI: null,
-    ananas: null,
+    gold: null,
 
 //    initUI: function () {
 //      var options = {};
@@ -76,9 +76,10 @@ var Game = {
     _generateBoxes: function(layer1) {
         for (var i=0;i<10;i++) {
             var index = Math.floor(ROT.RNG.getUniform() * layer1.length);
-            console.log(index);
+            console.log('index is ' + index);
             var key = layer1.splice(index, 1)[0];
-            this.map[key] = "C";
+            console.log('key is ' + key);
+            this.map[key] =  "C";
             if (!i) { this.gold = key; } /* first box contains an ananas */
         }
     },
@@ -139,10 +140,13 @@ player.prototype = {
     keys[0] = "C";
     keys[1] = "$";
     keys[2] = "P";
-    
+
     if (Game.map[newKey] === keys[0]) {
       console.log('alert box detected bro')
-//      box.bump();      
+//      var index = null;
+        newKey
+
+//      layer1.splice(index, 1)[0];    
 
       return;
     };/*
